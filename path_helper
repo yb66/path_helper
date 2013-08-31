@@ -1,0 +1,15 @@
+#!/bin/bash -
+
+declare -a path_dirs
+
+while read -r dir ; do
+    if [ "${#path_dirs[@]}" == "0" ]; then
+        path_dirs=${dir}
+    else
+        path_dirs+=":${dir}"
+    fi
+done < <(/bin/cat /etc/paths.d/??-* 2> /dev/null)
+
+echo "PATH=\"${path_dirs[@]}\"; export PATH;"
+
+# EOF
