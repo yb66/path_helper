@@ -4,7 +4,12 @@ Simple replacement of Apple's `/usr/libexec/path_helper` using bash script which
 
 ## Install
 
+Copying script to a better location:
+
     $ sudo make
+    install -m 0755 ./path_helper /usr/local/bin
+
+And checking it's output:
 
     $ time /usr/local/bin/path_helper
     PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/libexec:/opt/X11/bin:/Users/otaviof/.bin:/Users/otaviof/perl5/bin:/Users/otaviof/Go/bin"; export PATH;
