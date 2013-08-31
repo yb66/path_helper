@@ -1,4 +1,4 @@
-# Bash "path_helper"
+# path_helper
 
 Simple replacement of Apple's `/usr/libexec/path_helper` using bash script which will prepare `PATH` to suit [Homebrew](http://brew.sh/) project.
 
@@ -24,3 +24,13 @@ We also need to inform `ZSH` about the new `path_helper`:
     if [ -x /usr/libexec/path_helper ]; then
         eval `/usr/local/bin/path_helper`
     fi
+
+## Source Files
+
+The script will expect to have the following source files name convention, for example:
+
+    $ ls -1 /etc/paths.d
+    00-local
+    10-base_system
+    40-XQuartz
+    50-otaviof
