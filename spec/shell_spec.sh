@@ -172,6 +172,12 @@ if /usr/local/bin/ruby "$PWD/exe/path_helper" -q 2>/dev/null; then
 	failures="${failures:+"$failures:"}the kind of path must be declared"
 fi
 
+# With pre-existing path
+if ! test_a_path "path_with_path_spec" "path-with-path.txt" "-p"; then
+	PASS=1
+	failures="${failures:+"$failures:"}path_spec"
+fi
+
 
 if [ $PASS -eq 0 ]; then
 	echo Passed!
