@@ -529,14 +529,16 @@ packer build docker/docker.pkr.hcl
 ### <a name="to-run-the-specs">To run the specs</a>
 
 ```shell
-docker run --rm yb66/path_helper:4.0.0-ph-r237
-docker run --rm yb66/path_helper:4.0.0-ph-r270
+docker run --rm path_helper:4.0.0-ph-r237
+docker run --rm path_helper:4.0.0-ph-r270
+
+# e.g. docker run --rm path_helper:$VERSION-ph-r$RUBY_VERSION
 ```
 
 ### <a name="shell-in-and-have-a-play">Shell in and have a play</a>
 
 ```shell
-docker run --rm -ti --entrypoint="" yb66/path_helper sh
+docker run --rm -ti --entrypoint="" path_helper:4.0.0-ph-r237 sh
 ```
 
 Run some tests yourself:
