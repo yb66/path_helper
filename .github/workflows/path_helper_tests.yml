@@ -42,11 +42,12 @@ jobs:
         PATH_HELPER_DOCKER_INSTANCE: "true"
       run: |
         set -o pipefail
-        sudo spec/shell_spec.sh | tee test_output.log
+        sudo spec/shell_spec.sh | tee test_output_ruby-${{ matrix.ruby-version }}.log
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
       if: failure()
       with:
-        name: test-results
-        path: test_output.log
+        name: test-results-ruby-${{ matrix.ruby-version }}
+        path: test_output_ruby-${{ matrix.ruby-version }}.log
+
