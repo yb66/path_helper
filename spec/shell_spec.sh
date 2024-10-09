@@ -71,29 +71,29 @@ test_a_path(){
 }
 
 test_setup(){
-	[ -d /root/.config/paths/c_include_paths.d ] &&
+	[ -d $HOME/.config/paths/c_include_paths.d ] &&
 	[ -d /etc/c_include_paths.d ] &&
-	[ -f /root/.config/paths/c_include_paths ] &&
+	[ -f $HOME/.config/paths/c_include_paths ] &&
 	[ -f /etc/c_include_paths ] &&
-	[ -d /root/.config/paths/dyld_fallback_framework_paths.d ] &&
+	[ -d $HOME/.config/paths/dyld_fallback_framework_paths.d ] &&
 	[ -d /etc/dyld_fallback_framework_paths.d ] &&
-	[ -f /root/.config/paths/dyld_fallback_framework_paths ] &&
+	[ -f $HOME/.config/paths/dyld_fallback_framework_paths ] &&
 	[ -f /etc/dyld_fallback_framework_paths ] &&
-	[ -d /root/.config/paths/dyld_fallback_library_paths.d ] &&
+	[ -d $HOME/.config/paths/dyld_fallback_library_paths.d ] &&
 	[ -d /etc/dyld_fallback_library_paths.d ] &&
-	[ -f /root/.config/paths/dyld_fallback_library_paths ] &&
+	[ -f $HOME/.config/paths/dyld_fallback_library_paths ] &&
 	[ -f /etc/dyld_fallback_library_paths ] &&
-	[ -d /root/.config/paths/manpaths.d ] &&
+	[ -d $HOME/.config/paths/manpaths.d ] &&
 	[ -d /etc/manpaths.d ] &&
-	[ -f /root/.config/paths/manpaths ] &&
+	[ -f $HOME/.config/paths/manpaths ] &&
 	[ -f /etc/manpaths ] &&
-	[ -d /root/.config/paths/pkg_config_paths.d ] &&
+	[ -d $HOME/.config/paths/pkg_config_paths.d ] &&
 	[ -d /etc/pkg_config_paths.d ] &&
-	[ -f /root/.config/paths/pkg_config_paths ] &&
+	[ -f $HOME/.config/paths/pkg_config_paths ] &&
 	[ -f /etc/pkg_config_paths ] &&
-	[ -d /root/.config/paths/paths.d ] &&
+	[ -d $HOME/.config/paths/paths.d ] &&
 	[ -d /etc/paths.d ] &&
-	[ -f /root/.config/paths/paths ]
+	[ -f $HOME/.config/paths/paths ]
 }
 
 TMPDIR=$(mktemp -d)
