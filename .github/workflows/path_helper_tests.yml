@@ -45,7 +45,7 @@ jobs:
         sudo spec/shell_spec.sh | tee test_output.log
 
     - name: Upload test results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: test-results
