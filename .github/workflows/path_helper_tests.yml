@@ -18,7 +18,7 @@ jobs:
         ruby-version: ['2.3.7', '2.7.0', '3.3.5']
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Setup latest Alpine Linux
       uses: jirutka/setup-alpine@v1
@@ -34,7 +34,8 @@ jobs:
         # Ensure executables are... executable
         chmod +x exe/path_helper
         chmod +x spec/shell_spec.sh
-        sudo ./exe/path_helper --setup --no-lib --quiet
+        ./exe/path_helper --setup --no-lib --no-etc --config --quiet
+        sudo ./exe/path_helper --setup --no-lib --etc --no-config --quiet
         cp -R spec/fixtures/moredirs/* $HOME/.config/paths/
 
     - name: Run tests
