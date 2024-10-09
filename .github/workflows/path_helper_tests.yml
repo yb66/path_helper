@@ -30,7 +30,7 @@ jobs:
 
     - name: Set up test environment
       run: |
-        sudo mv etc-paths /etc/paths
+        sudo mv ./docker/assets/etc-paths /etc/paths
         # Ensure executables are... executable
         chmod +x exe/path_helper
         chmod +x spec/shell_spec.sh
