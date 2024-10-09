@@ -34,7 +34,7 @@ jobs:
         # Ensure executables are... executable
         chmod +x exe/path_helper
         chmod +x spec/shell_spec.sh
-        ./exe/path_helper --setup --no-lib --quiet
+        sudo ./exe/path_helper --setup --no-lib --quiet
         cp -R spec/fixtures/moredirs/* $HOME/.config/paths/
 
     - name: Run tests
