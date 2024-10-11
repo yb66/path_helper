@@ -172,42 +172,42 @@ if ! test_setup; then
 fi
 
 
-if ! test_a_path "path_spec" "path.txt" "-p"; then
+if ! test_a_path_with_time "path_spec" "path.txt" "-p"; then
 	PASS=1
 	failures="${failures:+"$failures:"}path_spec"
 fi
 
-if ! test_a_path "debug_path_spec" "debug_path.txt" "-p" "--debug"; then
+if ! test_a_path_with_time "debug_path_spec" "debug_path.txt" "-p" "--debug"; then
 	PASS=1
 	failures="${failures:+"$failures:"}debug_path_spec"
 fi
 
-if ! test_a_path "manpath_spec" "manpath.txt" "-m"; then
+if ! test_a_path_with_time "manpath_spec" "manpath.txt" "-m"; then
 	PASS=1
 	failures="${failures:+"$failures:"}manpath_spec"
 fi
 
-if ! test_a_path "c_include_spec" "c_include.txt" "-c"; then
+if ! test_a_path_with_time "c_include_spec" "c_include.txt" "-c"; then
 	PASS=1
 	failures="${failures:+"$failures:"}c_include_spec"
 fi
 
-if ! test_a_path "dyld-fram_spec" "dyld-fram.txt" "-f"; then
+if ! test_a_path_with_time "dyld-fram_spec" "dyld-fram.txt" "-f"; then
 	PASS=1
 	failures="${failures:+"$failures:"}dyld-fram_spec"
 fi
 
-if ! test_a_path "dyld-lib_spec" "dyld-lib.txt" "-l"; then
+if ! test_a_path_with_time "dyld-lib_spec" "dyld-lib.txt" "-l"; then
 	PASS=1
 	failures="${failures:+"$failures:"}dyld-lib_spec"
 fi
 
-if ! test_a_path "pkg_config_spec" "pkg_config.txt" "--pc"; then
+if ! test_a_path_with_time "pkg_config_spec" "pkg_config.txt" "--pc"; then
 	PASS=1
 	failures="${failures:+"$failures:"}pkg_config_spec"
 fi
 
-if ! test_a_path "pkg_config_spec" "debug_pkg_config.txt" "--pc" "--debug"; then
+if ! test_a_path_with_time "pkg_config_spec" "debug_pkg_config.txt" "--pc" "--debug"; then
 	PASS=1
 	failures="${failures:+"$failures:"}pkg_config_spec"
 fi
@@ -227,7 +227,7 @@ if /usr/local/bin/ruby "$PWD/exe/path_helper" -q 2>/dev/null; then
 fi
 
 # With pre-existing path
-if ! test_a_path "path_with_path_spec" "path-with-path.txt" "-p"; then
+if ! test_a_path_with_time "path_with_path_spec" "path-with-path.txt" "-p"; then
 	PASS=1
 	failures="${failures:+"$failures:"}path_spec"
 fi
