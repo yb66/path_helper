@@ -108,6 +108,48 @@ test_setup(){
 	[ -f $HOME/.config/paths/paths ]
 }
 
+# Function to get time in nanoseconds
+get_time_ns() {
+    date +%s%N
+}
+
+# Function to run a baseline operation
+baseline_operation() {
+	for i in {1..1000000}; do
+		: # No-op
+	done
+}
+
+measure_baseline() {
+	local start=$(get_time_ns)
+	baseline_operation
+	local end=$(get_time_ns)
+	echo $((end - start))
+}
+
+# Global variable to store baseline duration
+BASELINE_DURATION=$(measure_baseline)
+
+# Function to measure relative time
+test_a_path_with_time() {
+	local test_name="$1"
+
+	# Measure test_a_path
+	local test_start=$(get_time_ns)
+	test_a_path "$@"
+	local test_result=$?
+	local test_end=$(get_time_ns)
+	local test_duration=$((test_end - test_start))
+
+	# Calculate relative time using global BASELINE_DURATION
+	local relative_time=$(echo "scale=2; $test_duration / $BASELINE_DURATION" | bc)
+
+	echo "Performance: $test_name took ${relative_time}x baseline time"
+
+	return $test_result
+}
+
+
 TMPDIR=$(mktemp -d)
 cleanup
 
