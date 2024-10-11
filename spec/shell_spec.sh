@@ -17,34 +17,46 @@ fi
 results=$(mktemp)
 
 cleanup(){
+	handle_error() {
+		echo "Error: $1" >&2
+	}
+	safe_remove() {
+		local target="$1"
+		if [[ -d "$target" ]]; then
+			rm -rf "$target" || handle_error "Failed to remove $target"
+		else
+			rm -f "$target" || handle_error "Failed to remove $target"
+		fi
+	}
+
 	if [ -d "$HOME/Library/Paths" ]; then
-		rm -rf "$HOME/Library/Paths"
+		safe_remove "$HOME/Library/Paths"
 	fi
 	if [ -d "$HOME/.config/paths" ]; then
-		rm -rf "$HOME/.config/paths"
+		safe_remove "$HOME/.config/paths"
 	fi
 	if [ -d /etc/paths.d ]; then
-		rm -rf /etc/paths.d
+		safe_remove /etc/paths.d
 	fi
 	if [ -d /etc/manpaths.d ]; then
-		rm -rf /etc/manpaths.d
-		rm /etc/manpaths
+		safe_remove /etc/manpaths.d
+		safe_remove /etc/manpaths
 	fi
 	if [ -d /etc/dyld_fallback_framework_paths.d ]; then
-		rm -rf /etc/dyld_fallback_framework_paths.d
-		rm /etc/dyld_fallback_framework_paths
+		safe_remove /etc/dyld_fallback_framework_paths.d
+		safe_remove /etc/dyld_fallback_framework_paths
 	fi
 	if [ -d /etc/dyld_fallback_library_paths.d ]; then
-		rm -rf /etc/dyld_fallback_library_paths.d
-		rm /etc/dyld_fallback_library_paths
+		safe_remove /etc/dyld_fallback_library_paths.d
+		safe_remove /etc/dyld_fallback_library_paths
 	fi
 	if [ -d /etc/pkg_config_paths.d ]; then
-		rm -rf /etc/pkg_config_paths.d
-		rm /etc/pkg_config_paths
+		safe_remove /etc/pkg_config_paths.d
+		safe_remove /etc/pkg_config_paths
 	fi
 	if [ -d /etc/c_include_paths.d ]; then
-		rm -rf /etc/c_include_paths.d
-		rm /etc/c_include_paths
+		safe_remove /etc/c_include_paths.d
+		safe_remove /etc/c_include_paths
 	fi
 }
 
