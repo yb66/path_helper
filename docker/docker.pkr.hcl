@@ -13,6 +13,21 @@ locals {
 			name 	= "ph-r270"
 			image = "ruby:2.7.0-alpine3.8"
 			tag 	= "${var.ph_version}-ruby2.7.0"
+		},
+		{
+			name 	= "ph-r317"
+			image = "ruby:3.1.7-alpine3.8"
+			tag 	= "${var.ph_version}-ruby3.1.7"
+		},
+		{
+			name 	= "ph-r339"
+			image = "ruby:3.3.9-alpine3.8"
+			tag 	= "${var.ph_version}-ruby3.3.3"
+		},
+		{
+			name 	= "ph-r347"
+			image = "ruby:3.4.7-alpine3.8"
+			tag 	= "${var.ph_version}-ruby3.4.7"
 		}
 	]
 }
