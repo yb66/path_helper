@@ -13,6 +13,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      PATH_HELPER_DOCKER_INSTANCE: 'true'
     strategy:
       matrix:
         # Test key Ruby versions: legacy (2.3.7), last 2.x (2.7), modern stable (3.2), latest (3.3)
