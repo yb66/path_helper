@@ -48,12 +48,10 @@ jobs:
       run: |
         mkdir -p ~/.config/paths
         cp -R spec/fixtures/moredirs/* ~/.config/paths
-        sudo mv spec /tmp/spec
-        sudo mv .ashenv /tmp/.ashenv
-        sudo mv exe /tmp/exe
-        sudo mv etc-paths /tmp/etc-paths
-        sudo chmod +x /tmp/exe/path_helper
-        sudo chmod +x /tmp/spec/shell_spec.sh
+        # Move test files to /tmp in a single operation
+        sudo mv spec .ashenv exe etc-paths /tmp/
+        # Set executable permissions in one command
+        sudo chmod +x /tmp/exe/path_helper /tmp/spec/shell_spec.sh
 
     - name: Run install script
       run: |
