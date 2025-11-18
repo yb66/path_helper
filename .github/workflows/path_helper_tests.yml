@@ -51,6 +51,8 @@ jobs:
         cp -R spec/fixtures/moredirs/* ~/.config/paths
         # Move test files to /tmp in a single operation
         sudo mv spec .ashenv exe etc-paths /tmp/
+        # Copy install script to /tmp
+        sudo cp docker/install.sh /tmp/install.sh
         # Set executable permissions in one command
         sudo chmod +x /tmp/exe/path_helper /tmp/spec/shell_spec.sh
 
