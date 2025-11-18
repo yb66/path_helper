@@ -619,6 +619,21 @@ The main workflow file is located at `.github/workflows/path_helper_tests.yml`. 
 5. Runs the shell-based test suite
 6. Generates test summaries and uploads artifacts
 
+### Contributing to CI/CD
+
+When making changes to the GitHub Actions workflow:
+
+1. **Test locally first**: Use [act](https://github.com/nektos/act) to test workflow changes locally before pushing
+2. **Use a feature branch**: Make workflow changes on a separate branch and verify they pass
+3. **Update documentation**: If adding new features, update this README section
+4. **Maintain backwards compatibility**: Ensure changes don't break existing test patterns
+5. **Follow security best practices**: Use minimal permissions, pin action versions, and avoid secrets in logs
+
+Key files:
+- `.github/workflows/path_helper_tests.yml` - Main test workflow
+- `spec/shell_spec.sh` - Shell-based test suite
+- `spec/fixtures/` - Test fixtures and expected results
+
 ## <a name="#licence">Licence</a>
 
 See the LICENCE file.
