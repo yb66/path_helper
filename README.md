@@ -634,6 +634,54 @@ Key files:
 - `spec/shell_spec.sh` - Shell-based test suite
 - `spec/fixtures/` - Test fixtures and expected results
 
+### Running Tests Locally vs CI
+
+**Local Testing (Docker)**
+
+The recommended way to run tests locally is using Docker, which provides an isolated environment:
+
+```shell
+# Build the Docker image
+PATH_HELPER_VERSION=$(./exe/path_helper --version 2>&1)
+packer build -var="ph_version=$PATH_HELPER_VERSION" docker/docker.pkr.hcl
+
+# Run tests for specific Ruby versions
+docker run --rm path_helper:$PATH_HELPER_VERSION-ph-r237
+docker run --rm path_helper:$PATH_HELPER_VERSION-ph-r270
+
+# Interactive shell for debugging
+docker run --rm -ti --entrypoint="" path_helper sh
+```
+
+**Local Testing (act)**
+
+To simulate the GitHub Actions environment locally:
+
+```shell
+# Install act (https://github.com/nektos/act)
+# Then run the workflow
+act push
+
+# Run with specific Ruby version
+act push --matrix ruby-version:3.2
+```
+
+**CI Testing**
+
+Tests automatically run on GitHub Actions when:
+- Pushing to `master` or `v4` branches
+- Opening/updating pull requests to those branches
+- Manually triggering via the Actions tab (workflow_dispatch)
+
+**Key Differences**
+
+| Aspect | Local (Docker) | CI (GitHub Actions) |
+|--------|----------------|---------------------|
+| Environment | Alpine Linux | Ubuntu |
+| Ruby setup | Pre-built in image | ruby/setup-ruby action |
+| Test output | Console only | Artifacts + Summary |
+| Speed | Fast (cached image) | Depends on cache hits |
+
 ## <a name="#licence">Licence</a>
 
 See the LICENCE file.
