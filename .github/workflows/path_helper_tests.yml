@@ -104,3 +104,4 @@ jobs:
       with:
         name: test-results-ruby-${{ matrix.ruby-version }}
         path: test_output.log
+        retention-days: 7
