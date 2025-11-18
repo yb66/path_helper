@@ -64,6 +64,20 @@ jobs:
         set -o pipefail
         /tmp/spec/shell_spec.sh | tee test_output.log
 
+    - name: Display test failures
+      if: failure()
+      run: |
+        echo "========================================"
+        echo "TEST FAILURES - Ruby ${{ matrix.ruby-version }}"
+        echo "========================================"
+        if [ -f test_output.log ]; then
+          echo ""
+          echo "Failed tests:"
+          grep -A 50 "Failure" test_output.log || cat test_output.log
+          echo ""
+          echo "========================================"
+        fi
+
     - name: Generate test summary
       if: always()
       run: |
