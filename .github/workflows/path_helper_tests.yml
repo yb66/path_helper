@@ -39,9 +39,10 @@ jobs:
 
     - name: Install dependencies
       timeout-minutes: 10
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y alpine-pbuilder
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: alpine-pbuilder
+        version: 1.0
 
     - name: Set up test environment
       run: |
