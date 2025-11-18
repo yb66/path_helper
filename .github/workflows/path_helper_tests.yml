@@ -39,33 +39,33 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
 
     - name: Install dependencies
-      timeout-minutes: 10
-      uses: awalsh128/cache-apt-pkgs-action@latest
-      with:
-        packages: alpine-pbuilder
-        version: 1.0
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y bc
 
     - name: Set up test environment
       run: |
-        mkdir -p ~/.config/paths
-        cp -R spec/fixtures/moredirs/* ~/.config/paths
-        sudo mv spec /tmp/spec
-        sudo mv docker/assets/.ashenv /tmp/.ashenv
-        sudo mv exe /tmp/exe
-        sudo mv docker/assets/etc-paths /tmp/etc-paths
-        sudo mv docker/install.sh /tmp/install.sh
-        sudo chmod +x /tmp/exe/path_helper
-        sudo chmod +x /tmp/spec/shell_spec.sh
+        sudo mkdir -p /root/.config/paths
+        sudo cp -R spec/fixtures/moredirs/* /root/.config/paths
+        sudo cp -R spec /root/spec
+        sudo cp docker/assets/.ashenv /root/.ashenv
+        sudo cp -R exe /root/exe
+        sudo cp docker/assets/etc-paths /etc/paths
+        sudo chmod +x /root/exe/path_helper
+        sudo chmod +x /root/spec/shell_spec.sh
 
-    - name: Run install script
+    - name: Run setup
       run: |
-        sudo sh -x /tmp/install.sh
+        cd /root
+        sudo ./exe/path_helper --setup --no-lib --quiet
+        sudo cp -R spec/fixtures/moredirs/* /root/.config/paths
 
     - name: Run tests
       timeout-minutes: 10
       run: |
         set -o pipefail
-        PATH_HELPER_DOCKER_INSTANCE=1 /tmp/spec/shell_spec.sh | tee test_output.log
+        cd /root
+        sudo PATH="$PATH" PATH_HELPER_DOCKER_INSTANCE=1 ./spec/shell_spec.sh 2>&1 | tee $GITHUB_WORKSPACE/test_output.log
 
     - name: Display test failures
       if: failure()
