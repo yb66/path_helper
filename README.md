@@ -597,7 +597,7 @@ exit
 
 ## <a name="ci-cd">CI/CD</a>
 
-The project uses GitHub Actions for continuous integration. The workflow runs on pushes and pull requests to the `master` and `v4` branches.
+The project uses GitHub Actions for continuous integration. The workflow runs on pushes and pull requests to the `master` and `dev` branches.
 
 ### Workflow Features
 
@@ -669,7 +669,7 @@ act push --matrix ruby-version:3.2
 **CI Testing**
 
 Tests automatically run on GitHub Actions when:
-- Pushing to `master` or `v4` branches
+- Pushing to `master` or `dev` branches
 - Opening/updating pull requests to those branches
 - Manually triggering via the Actions tab (workflow_dispatch)
 

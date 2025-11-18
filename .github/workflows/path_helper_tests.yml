@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - master
-      - v4
+      - dev
   pull_request:
     branches:
       - master
-      - v4
+      - dev
   workflow_dispatch:
 
 concurrency:

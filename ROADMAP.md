@@ -88,9 +88,9 @@ matrix:
 ```yaml
 on:
   push:
-    branches: [main, v4]
+    branches: [main, dev]
   pull_request:
-    branches: [main, v4]
+    branches: [main, dev]
   workflow_dispatch:
 
 concurrency:
