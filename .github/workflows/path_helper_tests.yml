@@ -35,9 +35,10 @@ jobs:
         mkdir -p ~/.config/paths
         cp -R spec/fixtures/moredirs/* ~/.config/paths
         sudo mv spec /tmp/spec
-        sudo mv .ashenv /tmp/.ashenv
+        sudo mv docker/assets/.ashenv /tmp/.ashenv
         sudo mv exe /tmp/exe
-        sudo mv etc-paths /tmp/etc-paths
+        sudo mv docker/assets/etc-paths /tmp/etc-paths
+        sudo mv docker/install.sh /tmp/install.sh
         sudo chmod +x /tmp/exe/path_helper
         sudo chmod +x /tmp/spec/shell_spec.sh
 
@@ -48,7 +49,7 @@ jobs:
     - name: Run tests
       run: |
         set -o pipefail
-        /tmp/spec/shell_spec.sh | tee test_output.log
+        PATH_HELPER_DOCKER_INSTANCE=1 /tmp/spec/shell_spec.sh | tee test_output.log
 
     - name: Upload test results
       uses: actions/upload-artifact@v2

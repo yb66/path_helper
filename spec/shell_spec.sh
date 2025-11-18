@@ -184,4 +184,4 @@ fi
 
 cleanup
 
-return $PASS
+exit $PASS
