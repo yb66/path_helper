@@ -15,40 +15,45 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.3.7', '2.7.0', '3.3.5']
+        # Test key Ruby versions: legacy (2.3.7), last 2.x (2.7), modern stable (3.2), latest (3.3)
+        ruby-version: ['2.3.7', '2.7', '3.2', '3.3']
 
     steps:
-    - uses: actions/checkout@v4
-
-    - name: Setup latest Alpine Linux
-      uses: jirutka/setup-alpine@v1
+    - uses: actions/checkout@v2
 
     - name: Set up Ruby ${{ matrix.ruby-version }}
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
 
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y alpine-pbuilder
+
     - name: Set up test environment
       run: |
-        sudo mv ./docker/assets/etc-paths /etc/paths
-        # Ensure executables are... executable
-        chmod +x exe/path_helper
-        chmod +x spec/shell_spec.sh
-        ./exe/path_helper --setup --no-lib --no-etc --config --quiet
-        sudo ./exe/path_helper --setup --no-lib --etc --no-config --quiet
-        cp -R spec/fixtures/moredirs/* $HOME/.config/paths/
+        mkdir -p ~/.config/paths
+        cp -R spec/fixtures/moredirs/* ~/.config/paths
+        sudo mv spec /tmp/spec
+        sudo mv .ashenv /tmp/.ashenv
+        sudo mv exe /tmp/exe
+        sudo mv etc-paths /tmp/etc-paths
+        sudo chmod +x /tmp/exe/path_helper
+        sudo chmod +x /tmp/spec/shell_spec.sh
+
+    - name: Run install script
+      run: |
+        sudo sh -x /tmp/install.sh
 
     - name: Run tests
-      env:
-        PATH_HELPER_DOCKER_INSTANCE: "true"
       run: |
         set -o pipefail
-        sudo spec/shell_spec.sh | tee test_output_ruby-${{ matrix.ruby-version }}.log
+        /tmp/spec/shell_spec.sh | tee test_output.log
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
       if: failure()
       with:
-        name: test-results-ruby-${{ matrix.ruby-version }}
-        path: test_output_ruby-${{ matrix.ruby-version }}.log
-
+        name: test-results
+        path: test_output.log
