@@ -595,6 +595,30 @@ vim ~/.config/paths/paths.d/01-Nim
 exit
 ```
 
+## <a name="ci-cd">CI/CD</a>
+
+The project uses GitHub Actions for continuous integration. The workflow runs on pushes and pull requests to the `master` and `v4` branches.
+
+### Workflow Features
+
+- **Ruby Version Matrix**: Tests run against multiple Ruby versions (2.3.7, 2.7, 3.2, 3.3)
+- **Manual Triggers**: Workflow can be manually triggered via `workflow_dispatch`
+- **Concurrency Control**: Duplicate runs are cancelled when new commits are pushed
+- **APT Caching**: Dependencies are cached to speed up builds
+- **Test Summaries**: Results are displayed in the GitHub Actions UI
+- **Artifact Retention**: Test results are kept for 7 days
+
+### Workflow Structure
+
+The main workflow file is located at `.github/workflows/path_helper_tests.yml`. It:
+
+1. Checks out the code
+2. Sets up the specified Ruby version
+3. Installs dependencies (alpine-pbuilder)
+4. Configures the test environment
+5. Runs the shell-based test suite
+6. Generates test summaries and uploads artifacts
+
 ## <a name="#licence">Licence</a>
 
 See the LICENCE file.
