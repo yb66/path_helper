@@ -15,7 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.3.7', '2.7.0','3.3.x']
+        # Test key Ruby versions: legacy (2.3.7), last 2.x (2.7), modern stable (3.2), latest (3.3)
+        ruby-version: ['2.3.7', '2.7', '3.2', '3.3']
 
     steps:
     - uses: actions/checkout@v2
