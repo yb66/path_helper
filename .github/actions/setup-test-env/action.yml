@@ -1,0 +1,20 @@
+name: 'Setup Test Environment'
+description: 'Sets up the test environment for path_helper tests'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up test environment
+      shell: bash
+      run: |
+        mkdir -p ~/.config/paths
+        cp -R spec/fixtures/moredirs/* ~/.config/paths
+        # Move test files to /tmp in a single operation
+        sudo mv spec .ashenv exe etc-paths /tmp/
+        # Set executable permissions in one command
+        sudo chmod +x /tmp/exe/path_helper /tmp/spec/shell_spec.sh
+
+    - name: Run install script
+      shell: bash
+      run: |
+        sudo sh -x /tmp/install.sh
