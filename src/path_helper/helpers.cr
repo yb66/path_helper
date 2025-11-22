@@ -29,14 +29,18 @@ module PathHelper
   end
 
   module Helpers
-    def self.determine_search_order(options : Hash(Symbol, String | Bool | Nil)) : Array(Segment)
+    def self.default_order : Array(Segment)
       {% if flag?(:darwin) %}
-        default_order = [Segment::Lib, Segment::Config, Segment::Etc]
+        [Segment::Lib, Segment::Config, Segment::Etc]
       {% else %}
-        default_order = [Segment::Config, Segment::Lib, Segment::Etc]
+        [Segment::Config, Segment::Lib, Segment::Etc]
       {% end %}
+    end
 
-      default_order.reject do |k|
+    def self.determine_search_order(options : Hash(Symbol, String | Bool | Nil)) : Array(Segment)
+      order = default_order
+
+      order.reject do |k|
         # Get the option key for this segment
         opt_key = case k
                   when Segment::Lib    then :lib
@@ -47,7 +51,7 @@ module PathHelper
 
         # Reject if explicitly false, or if it's the secondary default and not explicitly true
         (options[opt_key]? == false) ||
-          (k == default_order[1] && options[opt_key]? != true)
+          (k == order[1] && options[opt_key]? != true)
       end
     end
 
