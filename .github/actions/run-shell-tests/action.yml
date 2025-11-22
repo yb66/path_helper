@@ -17,7 +17,7 @@ runs:
     - name: Run setup
       shell: bash
       run: |
-        sudo bash -c 'cd /root && ruby exe/path_helper --setup --no-lib --quiet'
+        sudo bash -c 'cd /root && ./exe/path_helper --setup --no-lib --quiet'
         sudo cp -R spec/fixtures/moredirs/* /root/.config/paths
 
     - name: Run tests
