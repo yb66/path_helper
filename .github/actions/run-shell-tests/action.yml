@@ -2,8 +2,8 @@ name: 'Run Shell Tests'
 description: 'Runs the shell-based test suite for path_helper'
 
 inputs:
-  ruby-version:
-    description: 'Ruby version being tested (for reporting)'
+  language-version:
+    description: 'Language version being tested (for reporting)'
     required: true
 
 outputs:
@@ -14,19 +14,27 @@ outputs:
 runs:
   using: 'composite'
   steps:
+    - name: Run setup
+      shell: bash
+      run: |
+        sudo bash -c 'cd /root && ./exe/path_helper --setup --no-lib --quiet'
+        sudo cp -R spec/fixtures/moredirs/* /root/.config/paths
+
     - name: Run tests
       id: run-tests
       shell: bash
+      env:
+        PATH_HELPER_DOCKER_INSTANCE: '1'
       run: |
         set -o pipefail
-        /tmp/spec/shell_spec.sh | tee test_output.log
+        sudo bash -c "cd /root && PATH=\"$PATH\" PATH_HELPER_DOCKER_INSTANCE=1 ./spec/shell_spec.sh" 2>&1 | tee test_output.log
 
     - name: Display test failures
       if: failure()
       shell: bash
       run: |
         echo "========================================"
-        echo "TEST FAILURES - Ruby ${{ inputs.ruby-version }}"
+        echo "TEST FAILURES - ${{ inputs.language-version }}"
         echo "========================================"
         if [ -f test_output.log ]; then
           echo ""
@@ -40,7 +48,7 @@ runs:
       if: always()
       shell: bash
       run: |
-        echo "## Test Results for Ruby ${{ inputs.ruby-version }}" >> $GITHUB_STEP_SUMMARY
+        echo "## Test Results for ${{ inputs.language-version }}" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         if [ -f test_output.log ]; then
           if grep -q "Passed!" test_output.log; then
@@ -56,3 +64,4 @@ runs:
         else
           echo ":warning: **No test output found**" >> $GITHUB_STEP_SUMMARY
         fi
+
