@@ -164,7 +164,7 @@ if test_setup; then
 	failures="${failures:+"$failures:"}setup_spec 1"
 fi
 
-./exe/path_helper --setup --no-lib --quiet
+ruby exe/path_helper --setup --no-lib --quiet
 cp -R spec/fixtures/moredirs/* ~/.config/paths
 
 # This should pass now because the setup has been run

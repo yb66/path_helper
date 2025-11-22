@@ -45,14 +45,16 @@ jobs:
 
     - name: Set up test environment
       run: |
-        sudo mkdir -p /root/.config/paths
-        sudo cp -R spec/fixtures/moredirs/* /root/.config/paths
-        sudo cp -R spec /root/spec
-        sudo cp docker/assets/.ashenv /root/.ashenv
-        sudo cp -R exe /root/exe
-        sudo cp docker/assets/etc-paths /etc/paths
-        sudo chmod +x /root/exe/path_helper
-        sudo chmod +x /root/spec/shell_spec.sh
+        mkdir -p ~/.config/paths
+        cp -R spec/fixtures/moredirs/* ~/.config/paths
+        sudo mv spec /tmp/spec
+        sudo mv docker/assets/.ashenv /tmp/.ashenv
+        sudo mv exe /tmp/exe
+        sudo mv docker/assets/etc-paths /tmp/etc-paths
+        sudo mv docker/install.sh /tmp/install.sh
+        sudo chmod +x /tmp/exe/path_helper
+        sudo chmod +x /tmp/spec/shell_spec.sh
+        sudo chmod +x /tmp/install.sh
 
     - name: Run setup
       run: |
