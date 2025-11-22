@@ -22,7 +22,6 @@ runs:
 
     - name: Run tests
       id: run-tests
-      timeout-minutes: 10
       shell: bash
       env:
         PATH_HELPER_DOCKER_INSTANCE: '1'
