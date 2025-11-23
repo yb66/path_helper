@@ -149,7 +149,7 @@ module PathHelper
           debugger = Debug.new(helper)
           print debugger.render
           puts "\n\nEnv var:\n"
-          print env_var << "\n\n"
+          print env_var + "\n\n"
         else
           print helper.run
         end
