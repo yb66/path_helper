@@ -166,6 +166,10 @@ fi
 
 ./exe/path_helper --setup --no-lib --quiet
 cp -R spec/fixtures/moredirs/* ~/.config/paths
+# Populate /etc/paths if it's empty and the source file exists
+if [ ! -s /etc/paths ] && [ -f docker/assets/etc-paths ]; then
+	cp docker/assets/etc-paths /etc/paths
+fi
 
 # This should pass now because the setup has been run
 if ! test_setup; then
